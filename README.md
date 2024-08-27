@@ -80,6 +80,6 @@ then there is the "Popup" Folder which has all the PopUp components you see when
 
 # Back end
 For the back end I split everything up into a standard Model, Router, Services, Controller setup which is very common for robust backends 
-The Router class takes the different services in the Services folder and feeds them into the Controller class which then initializes tehm with Express when the app starts 
+The Router class takes the different services in the Services folder and feeds them into the Controller class which then initializes them with Express when the app starts 
 The Model folder is used to determine the Database tables for the mongo database
 
