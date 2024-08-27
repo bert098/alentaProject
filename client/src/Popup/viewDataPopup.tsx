@@ -12,26 +12,27 @@ const viewModal: FC<ModalProps> = ({ show, onClose, children }) => {
   if (!show) {
     return null;
   }
-  const formattedDate = formatDate(children.appointmentDate);
+  console.log(children)
+  const formattedDate = formatDate(children.dueDate);
   return (
     <div className="modal-overlay">
       <div className="modal-content">
         <button className="modal-close" onClick={onClose}>X</button>
         <h1>
-          {children.jobType}
+          {children.name}
         </h1>
         <div>
           <div className='infoSpacing'>
-            Customer Name: {children.customerName}
+            Task Type: {children.type}
           </div>
           <div className='infoSpacing'>
             Status: {children.status}
           </div>
           <div className='infoSpacing'>
-            Date: {formattedDate}
+            Due Date: {formattedDate}
           </div>
           <div className='infoSpacing'>
-            Technician: {children.technician}
+            Assignee: {children.assignee}
           </div>
         </div>
       </div>

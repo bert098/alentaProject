@@ -1,4 +1,5 @@
 const formatDate = (dateString: string): string => {
+  console.log(dateString)
   const options: Intl.DateTimeFormatOptions = {
     weekday: 'long',
     year: 'numeric',

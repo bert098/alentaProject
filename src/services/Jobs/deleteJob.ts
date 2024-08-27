@@ -3,18 +3,17 @@ dotenv.config()
 import * as express from 'express';
 dotenv.config();
 import jobs from '../../jobs';
+import Task from '../..//models/task'
 
 class deleteJobService {
   public path = '/jobs/:id';
   public type = "delete"
   public service = async (request: express.Request, response: express.Response) => {
-    const jobId = parseInt(request.params.id);
-    const jobIndex = jobs.findIndex(job => job.id === jobId);
-    if (jobIndex !== -1) {
-      const deletedJob = jobs.splice(jobIndex, 1);
-      response.json(deletedJob);
-    } else {
-      response.status(404).send('Job not found');
+    try {
+      await Task.findByIdAndDelete(request.params.id);
+      response.status(200).json({ message: 'Task deleted' });
+    } catch (error) {
+      response.status(400).json({ message: "Could Not Delete" });
     }
   }
 

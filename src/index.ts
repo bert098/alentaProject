@@ -1,5 +1,6 @@
 import express = require('express');
 var cors = require('cors')
+const connectDB = require('./db');
  
 class App {
   public app: express.Application;
@@ -14,6 +15,7 @@ class App {
   }
  
   private initializeControllers(controllers:any) {
+    connectDB();
     controllers.forEach((controller:any) => {
         this.app.use('/', controller.routerService.router);
     

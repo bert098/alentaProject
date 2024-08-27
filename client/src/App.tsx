@@ -37,28 +37,28 @@ function App() {
       <div className="image-container">
         <img className="heroImage" src={heroimage}></img>
         <div className="overlay-text">
-          <h1>Let us manage your Jobs!</h1>
-          <p>The most intuitive job management system</p>
+          <h1>Let us manage your Tasks!</h1>
+          <p>The most intuitive task management system</p>
         </div>
       </div>
       <div>
-        <p className='intro'>Here at Dumitru job management we strive to provide the best way to manage your jobs, use our easy to understand portal where you can see all the jobs you have available as well as add new jobs. See any issues with your current jobs? update or delete them anytime you want!</p>
+        <p className='intro'>Here at Dumitru task management we strive to provide the best way to manage your tasks, use our easy to understand portal where you can see all the tasks you have available as well as add new tasks. See any issues with your current tasks? update or delete them anytime you want!</p>
         <div className='greyBackground'>
           <div className='container'>
-            <h1 >Job Managment Dashboard</h1>
+            <h1 >Task Managment Dashboard</h1>
             <ItemList items={data} setJobs={setJobs} />
 
           </div>
 
         </div>
         <div className="newCrad">
-          <h2 >Add New Job</h2>
+          <h2 >Add New Task</h2>
           <ChangeModal children={{
-            "customerName": "",
-            "jobType": "",
+            "name": "",
+            "type": "",
             "status": "",
-            "appointmentDate": todayDate,
-            "technician": ""
+            "dueDate": todayDate,
+            "assignee": ""
           }} setJobs={setJobs} command='post' onClose={() => { }} />
         </div>
       </div>

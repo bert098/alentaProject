@@ -30,7 +30,8 @@ const ItemList: React.FC<ItemListProps> = ({ items, setJobs }) => {
     setShowModal(false);
   };
   const openUpdateModal = async (id: any) => {
-
+    console.log('here')
+    console.log(id)
     let res = await axios.get("http://localhost:3001/jobs", {
       params: {
         id: id,
@@ -62,19 +63,19 @@ const ItemList: React.FC<ItemListProps> = ({ items, setJobs }) => {
           <li key={index}>
             <span className='cardTitle'>
               <div className='jobName'>
-                {item.jobType}
+                {item.name}
               </div>
               <div className='actionButtons'>
-                <button className='updateButton' onClick={() => openUpdateModal(item.id)}>Edit Job</button>
+                <button className='updateButton' onClick={() => openUpdateModal(item._id)}>Edit Task</button>
                 <EditModel show={showUpdateModal} onClose={closeUpdateModal} setJobs={setJobs}>
                   {jobData}
                 </EditModel>
-                <button className='viewButton' onClick={() => openInfoModal(item.id)}>View Job</button>
+                <button className='viewButton' onClick={() => openInfoModal(item._id)}>View Task</button>
                 
                 <ViewModal show={showModal} onClose={closeInfoModal}>
                   {jobData}
                 </ViewModal>
-                <button className='deleteButton' onClick={() => deleteIndex(item.id)}>
+                <button className='deleteButton' onClick={() => deleteIndex(item._id)}>
                   Delete
                 </button>
               </div>

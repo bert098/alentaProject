@@ -2,20 +2,14 @@ const dotenv = require('dotenv');
 dotenv.config()
 import * as express from 'express';
 dotenv.config();
-import jobs from '../../jobs';
+import Task from '../..//models/task'
 
 class putJobService {
   public path = '/jobs/:id';
   public type = "put"
   public service = async (request: express.Request, response: express.Response) => {
-    const jobId = parseInt(request.params.id);
-    const jobIndex = jobs.findIndex(job => job.id === jobId);
-    if (jobIndex !== -1) {
-      jobs[jobIndex] = { ...jobs[jobIndex], ...request.body };
-      response.json(jobs[jobIndex]);
-    } else {
-      response.status(404).send('Job not found');
-    }
+    const task = await Task.findByIdAndUpdate(request.params.id, request.body, { new: true });
+    response.status(200).json(task);
   }
 
 }

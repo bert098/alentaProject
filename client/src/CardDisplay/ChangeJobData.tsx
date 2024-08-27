@@ -16,9 +16,9 @@ interface ModalProps {
 
 const ChangeModal: FC<ModalProps> = ({ children, setJobs, command, onClose }) => {
 
-  console.log(children.appointmentDate)
+  console.log(children.dueDate)
 
-  const initialDate = new Date(children.appointmentDate);
+  const initialDate = new Date(children.dueDate);
   const initialDay = initialDate.getUTCDate().toString().padStart(2, '0');
   const initialMonth = (initialDate.getUTCMonth() + 1).toString().padStart(2, '0');
   const initialYear = initialDate.getUTCFullYear();
@@ -27,10 +27,10 @@ const ChangeModal: FC<ModalProps> = ({ children, setJobs, command, onClose }) =>
   const [month, setMonth] = useState(initialMonth);
   const [year, setYear] = useState(initialYear);
   const [time, setTime] = useState(initialTime);
-  const [customerName, setcustomerName] = useState(children.customerName);
-  const [type, setType] = useState(children.jobType);
+  const [customerName, setcustomerName] = useState(children.name);
+  const [type, setType] = useState(children.type);
   const [status, setStatus] = useState(children.status);
-  const [tech, setTech] = useState(children.technician);
+  const [tech, setTech] = useState(children.assignee);
   const handlenameChange = (e: any) => setcustomerName(e.target.value);
   const handleStatusChange = (e: any) => setStatus(e.target.value);
   const handletypeChange = (e: any) => setType(e.target.value);
@@ -55,13 +55,14 @@ const ChangeModal: FC<ModalProps> = ({ children, setJobs, command, onClose }) =>
     try {
       if (command === 'put') {
         const combinedDate = `${year}-${month}-${day}T${time}:00Z`;
-        await axios.put(`http://localhost:3001/jobs/${children.id}`, {
-          id: children.id,
-          customerName: customerName,
-          jobType: type,
+        console.log(children)
+        await axios.put(`http://localhost:3001/jobs/${children._id}`, {
+          id: children._id,
+          name: customerName,
+          type: type,
           status: status,
-          appointmentDate: combinedDate,
-          technician: tech,
+          dueDate: combinedDate,
+          assignee: tech,
         })
         let res = await fetchJobs()
         setJobs(res);
@@ -69,11 +70,11 @@ const ChangeModal: FC<ModalProps> = ({ children, setJobs, command, onClose }) =>
       } else if (command === 'post') {
         const combinedDate = `${year}-${month}-${day}T${time}:00Z`;
         await axios.post(`http://localhost:3001/jobs`, {
-          customerName: customerName,
-          jobType: type,
+          name: customerName,
+          type: type,
           status: status,
-          appointmentDate: combinedDate,
-          technician: tech,
+          dueDate : combinedDate,
+          assignee: tech,
         })
         let res = await fetchJobs()
         setJobs(res);
@@ -86,7 +87,7 @@ const ChangeModal: FC<ModalProps> = ({ children, setJobs, command, onClose }) =>
     <div>
       <div>
         <label className='updateLabel'>
-          Customer Name
+          Task Name
         </label>
         <input
           type="text"
@@ -96,7 +97,7 @@ const ChangeModal: FC<ModalProps> = ({ children, setJobs, command, onClose }) =>
           className='updateInput'
         />
         <label className='updateLabel'>
-          Job Type
+          Task Type
         </label>
         <input
           type="text"
@@ -117,7 +118,7 @@ const ChangeModal: FC<ModalProps> = ({ children, setJobs, command, onClose }) =>
         />
 
         <label className='updateLabel'>
-          Technician
+          Who's Task?
         </label>
         <input
           type="text"
@@ -128,7 +129,7 @@ const ChangeModal: FC<ModalProps> = ({ children, setJobs, command, onClose }) =>
         />
         <div style={{ marginBottom: '10px' }}>
           <label style={{ display: 'block', marginBottom: '5px' }}>
-            Appointment Date
+            Due Date
           </label>
           <div style={{ display: 'flex', gap: '10px' }}>
             <input
